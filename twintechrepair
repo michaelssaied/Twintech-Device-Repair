@@ -1,0 +1,116 @@
+-- --------------------------------------------------------
+-- Host:                         localhost
+-- Server version:               5.7.24 - MySQL Community Server (GPL)
+-- Server OS:                    Win64
+-- HeidiSQL Version:             9.5.0.5332
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+
+-- Dumping database structure for twintechrepair
+CREATE DATABASE IF NOT EXISTS `twintechrepair` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
+USE `twintechrepair`;
+
+-- Dumping structure for table twintechrepair.customer
+CREATE TABLE IF NOT EXISTS `customer` (
+  `customerID` int(11) NOT NULL AUTO_INCREMENT,
+  `firstName` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `lastName` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `phoneNumber` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `areaCode` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`customerID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Dumping data for table twintechrepair.customer: ~6 rows (approximately)
+/*!40000 ALTER TABLE `customer` DISABLE KEYS */;
+INSERT INTO `customer` (`customerID`, `firstName`, `lastName`, `phoneNumber`, `areaCode`) VALUES
+	(1, 'Michael', 'Saied', '6745104', '806'),
+	(2, 'John', 'Doe', '5149876', '806'),
+	(3, 'test', 'test', '1234567', '806'),
+	(4, 'testy', 'mctesterson', '7894561', '806'),
+	(5, 'testy', 'mctesterson', '7894561', '806'),
+	(6, 'Tina', 'Fey', '1235987', '806');
+/*!40000 ALTER TABLE `customer` ENABLE KEYS */;
+
+-- Dumping structure for table twintechrepair.device
+CREATE TABLE IF NOT EXISTS `device` (
+  `deviceModel` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `deviceName` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`deviceModel`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Dumping data for table twintechrepair.device: ~8 rows (approximately)
+/*!40000 ALTER TABLE `device` DISABLE KEYS */;
+INSERT INTO `device` (`deviceModel`, `deviceName`) VALUES
+	('a1332', 'iPhone 4 (GSM)'),
+	('a1349', 'iPhone 4 (CDMA)'),
+	('a1387', 'iPhone 4s\r\n'),
+	('a1428', 'iPhone 5'),
+	('a1453', 'iPhone 5s'),
+	('a1456', 'iPhone 5c'),
+	('a1549', 'iPhone 6'),
+	('test', 'test');
+/*!40000 ALTER TABLE `device` ENABLE KEYS */;
+
+-- Dumping structure for table twintechrepair.devicerepair
+CREATE TABLE IF NOT EXISTS `devicerepair` (
+  `repairID` int(11) NOT NULL AUTO_INCREMENT,
+  `orderID` int(11) NOT NULL,
+  `deviceModel` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`repairID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Dumping data for table twintechrepair.devicerepair: ~0 rows (approximately)
+/*!40000 ALTER TABLE `devicerepair` DISABLE KEYS */;
+/*!40000 ALTER TABLE `devicerepair` ENABLE KEYS */;
+
+-- Dumping structure for table twintechrepair.parts
+CREATE TABLE IF NOT EXISTS `parts` (
+  `partSKU` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `partName` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `partPrice` int(11) NOT NULL,
+  `WorksOnDeviceModel` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`partSKU`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Dumping data for table twintechrepair.parts: ~2 rows (approximately)
+/*!40000 ALTER TABLE `parts` DISABLE KEYS */;
+INSERT INTO `parts` (`partSKU`, `partName`, `partPrice`, `WorksOnDeviceModel`) VALUES
+	('SCREEN4CDMA', 'Screen assembly', 24, 'iPhone 4 (CDMA)'),
+	('test', 'test', 40, 'iPhone 6');
+/*!40000 ALTER TABLE `parts` ENABLE KEYS */;
+
+-- Dumping structure for table twintechrepair.repairtype
+CREATE TABLE IF NOT EXISTS `repairtype` (
+  `repairSKU` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `laborPrice` int(11) NOT NULL,
+  `ApplyToDeviceModel` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`repairSKU`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Dumping data for table twintechrepair.repairtype: ~2 rows (approximately)
+/*!40000 ALTER TABLE `repairtype` DISABLE KEYS */;
+INSERT INTO `repairtype` (`repairSKU`, `laborPrice`, `ApplyToDeviceModel`) VALUES
+	('CHARGEPORTFIX', 60, 'iPhone 6'),
+	('SCREENFIX', 25, 'iPhone 4 (GSM)');
+/*!40000 ALTER TABLE `repairtype` ENABLE KEYS */;
+
+-- Dumping structure for table twintechrepair.workorder
+CREATE TABLE IF NOT EXISTS `workorder` (
+  `orderID` int(11) NOT NULL AUTO_INCREMENT,
+  `customerID` int(11) NOT NULL,
+  PRIMARY KEY (`orderID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Dumping data for table twintechrepair.workorder: ~0 rows (approximately)
+/*!40000 ALTER TABLE `workorder` DISABLE KEYS */;
+/*!40000 ALTER TABLE `workorder` ENABLE KEYS */;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
